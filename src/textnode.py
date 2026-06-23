@@ -2,9 +2,9 @@ from enum import Enum
 
 class TextType(Enum):
     TEXT = "text"
-    BOLD_TEXT = "bold text"
-    ITALIC_TEXT = "italic text"
-    CODE_TEXT = "code text"
+    BOLD = "bold text"
+    ITALIC = "italic text"
+    CODE = "code text"
     LINK = "link"
     IMAGE = "image"
 
@@ -14,8 +14,8 @@ class TextNode:
         self.text_type = text_type
         self.url = url
 
-    def  __eq__(textnode2):
-        if TextNode.text == textnode2.text and TextNode.text_type == textnode2.text_type and TextNode.url == textnode2.url:
+    def  __eq__(self, textnode2):
+        if self.text == textnode2.text and self.text_type == textnode2.text_type and self.url == textnode2.url:
             return True
     def  __repr__(TextNode):
         return f" TextNode({TextNode.text}, {TextNode.text_type}, {TextNode.url})"
