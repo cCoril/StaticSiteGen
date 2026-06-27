@@ -1,6 +1,6 @@
 class HTMLNode:
 
-    def __init__(self, tag=None, value=None, children=None, props=None):
+    def __init__(self, tag:str | None =None, value: str | None=None, children: list[any] | None=None, props: dict | None=None):
         self.tag = tag
         self.value = value
         self.children = children
@@ -10,7 +10,12 @@ class HTMLNode:
         raise NotImplementedError
     
     def props_to_html(self):
-        pass
+        str = ""
+        count = 0
+        for key in self.props.keys():
+            count += 1
+            str += f' {key}="{self.props[key]}"'
+        return str
 
     def __repr__(self):
         print(f"HTMLNode: {self.tag}, {self.value}, {self.children}, {self.props}")
