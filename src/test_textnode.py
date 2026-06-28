@@ -27,6 +27,24 @@ class TestTextNode(unittest.TestCase):
         node2 = TextNode("This is a text node", TextType.BOLD, "https://boot.dev")
         self.assertNotEqual(node, node2)
 
+    def test_text(self):
+        node = TextNode("This is a text node", TextType.TEXT)
+        html_node = node.text_node_to_html_node()
+        self.assertEqual(html_node.tag, None)
+        self.assertEqual(html_node.value, "This is a text node")
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_text_2(self):
+        node = TextNode("click here", TextType.LINK, "https://google.com")
+        html_node = node.text_node_to_html_node()
+        self.assertEqual(html_node.tag, "a")
+        self.assertEqual(html_node.value, "click here")
+        self.assertEqual(html_node.props, {"href": "https://google.com"})
+
+    def test_text_3(self):
+        node = TextNode("logo", TextType.IMAGE, "https://google.com/logo")
+        html_node = node.text_node_to_html_node()
+        self.assertEqual(html_node.tag, "img")
+        self.assertEqual(html_node.value, "")
+        self.assertEqual(html_node.props, {"src": "https://google.com/logo", "alt": "logo"})
+
+
