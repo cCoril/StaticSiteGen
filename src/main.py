@@ -1,9 +1,9 @@
 from textnode import *
+from delimit import extract_markdown_images
 
 def main():
-    new_node = TextNode("This is some anchor text", "link", "https://www.boot.dev")
-
-    print(new_node)
+   text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
+   print(extract_markdown_images(text))
 
 
 main()

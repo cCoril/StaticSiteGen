@@ -1,5 +1,5 @@
 import unittest
-from  delimit import split_nodes_delimiter
+from  delimit import split_nodes_delimiter, extract_markdown_images, extract_markdown_links
 from textnode import TextNode, TextType
 
 class TestDelmiiter(unittest.TestCase):
@@ -27,3 +27,8 @@ class TestDelmiiter(unittest.TestCase):
     def test_delimit_4(self):
         img1 = TextNode("click here", TextType.IMAGE, "https://google.com")
         self.assertEqual(split_nodes_delimiter([img1], "!", TextType.IMAGE), [img1])
+
+    def test_image_1(self):
+        text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)" 
+        image_results = extract_markdown_images(text)
+        self.assertEqual(image_results, [("rick roll", "https://i.imgur.com/aKaOqIh.gif"), ("obi wan", "https://i.imgur.com/fJRm4Vk.jpeg")])
