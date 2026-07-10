@@ -1,9 +1,10 @@
 from textnode import *
-from delimit import extract_markdown_images
+from extract import split_nodes_link
+from textnode import TextNode, TextType
 
 def main():
-   text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
-   print(extract_markdown_images(text))
+   text = TextNode("This is text with [google](https://google) and [facebook](https://facebook.com).", TextType.TEXT)
+   print(split_nodes_link([text]))
 
 
 main()
