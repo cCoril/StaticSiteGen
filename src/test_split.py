@@ -29,4 +29,36 @@ class Testsplit(unittest.TestCase):
         ]
         self.assertEqual(result, expected_result)
 
+    def test_split_image_1(self):
+        text = TextNode("This is an image: ![peter griffin](https://petergriffin.com)", TextType.TEXT)
+        result = split_nodes_image([text])
+        expected_result = [
+            TextNode("This is an image: ", TextType.TEXT),
+            TextNode("peter griffin", TextType.IMAGE, "https://petergriffin.com")
+        ]
+        self.assertEqual(result, expected_result)
     
+    def test_split_image_2(self):
+        text = TextNode("fart ![pic of a butt](https://fartpoop.com) and poop ![pic of poop](https://doodoo.com) are gross",TextType.TEXT)
+        result = split_nodes_image ([text])
+        expected_result = [
+            TextNode("fart ", TextType.TEXT),
+            TextNode("pic of a butt", TextType.IMAGE, "https://fartpoop.com"),
+            TextNode(" and poop ", TextType.TEXT),
+            TextNode("pic of poop", TextType.IMAGE, "https://doodoo.com"),
+            TextNode(" are gross", TextType.TEXT)
+        ]
+        self.assertEqual(result, expected_result)
+
+    def test_split_image_3(self):
+        text = TextNode("image ![image](https://image.com) ", TextType.TEXT)
+        result = split_nodes_image([text])
+        expected_result = [
+            TextNode("image ", TextType.TEXT),
+            TextNode("image", TextType.IMAGE, "https://image.com"),
+            TextNode(" ", TextType.TEXT)
+        ]
+        self.assertEqual(result, expected_result)
+
+    
+

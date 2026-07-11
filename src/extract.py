@@ -11,7 +11,21 @@ def extract_markdown_links(text: str) -> list[tuple]:
      return results
 
 def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
-     pass
+     new_list = []
+     for old_node in old_nodes:
+          image_list = extract_markdown_images(old_node.text)
+          split_nodes = re.split(r"!\[[^\[\]]+\]\([^\(\)]+\)", old_node.text)
+          if split_nodes[len(split_nodes) - 1] == "":
+               split_nodes.pop()
+          i = 0
+          while i <len(image_list):
+               new_list.append(TextNode(split_nodes[i], TextType.TEXT))
+               new_list.append(TextNode(image_list[i][0], TextType.IMAGE, image_list[i][1]))
+               i += 1
+          while i < len(split_nodes):
+               new_list.append(TextNode(split_nodes[i], TextType.TEXT))
+               i += 1
+     return new_list
 
 def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
      new_list = []
@@ -29,4 +43,3 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
                new_list.append(TextNode(split_nodes[i], TextType.TEXT))
                i += 1  
      return new_list
-                    
